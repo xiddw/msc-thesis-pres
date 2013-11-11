@@ -1,0 +1,27 @@
+############
+## Sublime Text
+############
+
+*.sublime-project
+*.sublime-workspace
+
+#################
+## LaTeX
+#################
+
+*.aux
+*.bak
+*.log
+*.toc
+*.out
+*.synctex.gz
+
+############
+## Windows
+############
+
+# Windows image file caches
+Thumbs.db
+
+# Folder config file
+Desktop.ini
