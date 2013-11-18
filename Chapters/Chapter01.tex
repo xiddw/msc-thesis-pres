@@ -5,7 +5,7 @@
 \section{Introducción}
 
 \subsection{Problema}
-\begin{frame}{Problema}
+\begin{frame}{}{Problema}
 
 \begin{itemize}
     \itemsep1em
@@ -27,7 +27,7 @@
 \begin{frame}{Motivación}
   \begin{itemize}
     \itemsep1em
-    \item  La tarea de speaker diarization es importante en diferentes procesos que se realizan con las grabaciones de audio, tales como la identificación y navegación por segmentos en específico, 
+    \item  La tarea de speaker diarization es importante en diferentes procesos que se realizan con las grabaciones de audio, tales como la identificación y navegación por segmentos en específico.
 
     \item También resulta útil para la búsqueda y recuperación de información en grandes volúmenes de secuencias de audio.
   
@@ -38,14 +38,16 @@
 
 \subsection{Principales enfoques}
 \begin{frame}{Principales enfoques}
-  You can create overlays\dots
-  \begin{itemize}
-    \item using the \texttt{pause} command:
-    \item
-      First item.
-    \item    
-      Second item.
-  \end{itemize}
+  De acuerdo al trabajo desarrollado hasta ahora, se pueden distinguir dos grandes enfoques:
+  
+  \begin{description}
+    \item[\textit{Bottom-up:}]
+      Se inicia la estimación con pocos clústers (e incluso un segmento único)
+    \item[\textit{Top-down:}]
+      Se inicia la estimación con muchos más grupos de los que se esperan encontrar.
+  \end{description}
+
+   Ambas metodologías iteran hasta converger a un número de clústers óptimo, en que cada grupo debe corresponder a un interlocutor.
 \end{frame}    
 
 \subsection{Trabajo previo}
