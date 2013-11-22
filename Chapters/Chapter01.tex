@@ -5,13 +5,13 @@
 \section{Introducción}
 
 \subsection{Problema}
-\begin{frame}{}{Problema}
+\begin{frame}{Problema}
 
 \begin{itemize}
     \itemsep1em
     \item Se considera que se tiene una señal de audio con información de nuestro interés, y se requiere segmentar de acuerdo a las personas que participan en la grabación.
 
-    \item \textit{Speaker Diarization}: el problema consiste en identificar el número de interlocutores que participan en una grabación de audio, y además encontrar en qué segmentos de la grabación habla cada persona.
+    \item \alert{\textit{Speaker Diarization}}: el problema consiste en identificar el número de interlocutores que participan en una grabación de audio, y además encontrar en qué segmentos de la grabación habla cada persona.
 
     \item Dos tareas principales: 
     \begin{enumerate}
@@ -41,6 +41,7 @@
   De acuerdo al trabajo desarrollado hasta ahora, se pueden distinguir dos grandes enfoques:
   
   \begin{description}
+    \itemsep1.5em
     \item[\textit{Bottom-up:}]
       Se inicia la estimación con pocos clústers (e incluso un segmento único)
     \item[\textit{Top-down:}]

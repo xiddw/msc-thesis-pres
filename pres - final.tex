@@ -2,15 +2,20 @@
 
 \usetheme{Boadilla}
 
-
 \usepackage{pgf}
 \usepackage[english]{babel}
 \usepackage[utf8]{inputenc}
+\usepackage{epstopdf}
 
 \usepackage{bm}
+%\usepackage[opticals,mathlf,onlytext]{MinionPro}
+\usepackage{mathpazo}
+\usepackage[euler-digits,euler-hat-accent]{eulervm}
 
-\usepackage{times}
-\usepackage[T1]{fontenc}
+%\setbeamercolor{structure}{fg=Ma}
+
+%\usepackage{times}
+%\usepackage[T1]{fontenc}
 
 %\usepackage{graphicx}
 %\usepackage{epstopdf}
@@ -58,6 +63,8 @@
 }
 
 \usecolortheme[RGB={79, 17, 32}]{structure} 
+\setbeamercolor{alerted text}{use=structure,fg=structure!50!red}
+
 \setbeamertemplate{navigation symbols}{} 
 
 \begin{document}
@@ -82,137 +89,7 @@
 
 \include{Chapters/Chapter03}
 
-\section{Modelo}
-\subsection{Hidden Markov Model}
-\begin{frame}{Hidden Markov Model}
-  	\begin{itemize}
-   	  \item Cadena de Markov de primer orden
-   	  	\begin{center}
-	        \includegraphics[width=0.4\textwidth]{gfx/mod-mm1}
-        \end{center}
-        
-        \begin{equation}
-          \label{eqn:1}
-          p(x_1, ..., x_N) 
-            ~=~ \prod_{n=1}^N p(x_n ~|~ x_1, ..., x_{n-1}) 
-            ~=~ p(x_1) \prod_{n=2}^N p(x_n ~|~ x_{n-1}) 
-        \end{equation} 
-		  \item Modelo estocástico de Markov en el que el estado de la cadena es parcialmente observado.
-		  	\begin{center}
-	        \includegraphics[width=0.5\textwidth]{gfx/mod-hmm}
-        \end{center}
-		  \item Modelar proceso bivariado en el tiempo. Una variable observada y una variable latente asociada.
-	\end{itemize}	
-\end{frame}
-
-\begin{frame}{Hidden Markov Model}
-  \begin{itemize}
-    \item Agregar una variable latente $z_n$ (discreta), que corresponda a cada observación $x_n$.
-      \begin{align}
-        z_{n+1} &\perp z_{n-1} ~|~ z_{n} \\
-        p(x_1, ..., x_N, z_1, ..., z_N) &~=~ p(z_1) \left [ \prod_{n=2}^N p(z_n ~|~ z_{n-1}) \right ] 
-          \prod_{n=1}^N p(x_n ~|~ z_{n}).
-      \end{align}
-      
-    \item Mezcla de distribuciones en la que la densidad tiene un distribución dada por $p(x | z)$      
-  \end{itemize}
-\end{frame}
-
-\begin{frame}{Parámetros del HMM}
-  \begin{itemize}
-    \item Probabilidad de cambio entre estados dada una \alert{matriz de transición} $\mathbf{A}$
-      \begin{align}
-        A_{jk} &\equiv p(z_{nk} = 1 ~|~  z_{n-1, j} = 1) \\
-        p(z_n ~|~ z_{n-1}, \mathbf{A}) &= \prod_{k=1}^K \prod_{j=1}^K A_{jk}^{z_{{n-1}, j} \cdot z_{n,k}}
-      \end{align}      
-    \item \alert{Vector de distribución inicial} $\bm{\pi}$ para variable latente.
-      \begin{align}
-        \pi_k &\equiv p(z_{1k}) \\
-        p(z_1 ~|~ \pi) &= \prod_{k=1}^K \pi_k^{z_{1k}}
-      \end{align}       
-    \item \alert{Probabilidad de emisión} de una variable observada $x_n$ dada una variable latente $z_n$.
-      \begin{equation}
-        p(x_n ~|~ z_n, \phi) = \prod_{k=1}^K p(x_n ~|~ \phi_k) ^ {z_{nk}}
-      \end{equation}
-  \end{itemize}
-\end{frame}
-
-\subsection{Resolver HMM con EM}
-
-\begin{frame}{HMM con EM}
-  \begin{itemize}
-    \item Probabilidad conjunta del modelo
-      \begin{equation}
-        p(\mathbf{X}, \mathbf{Z} ~|~ \theta)        
-          = p(z_1 ~|~ \pi) \left[ \prod_{n=2}^N p(z_n ~|~ z_{n-1}, \mathbf{A}) \right]
-          \prod_{n=1}^N p(x_n ~|~ z_n, \phi)
-      \end{equation}
-      
-      \item Parámetros del modelo $\theta = \lbrace \bm{\pi}, \mathbf{A}, \phi \rbrace$
-      
-      \item Función de verosimilitud completa
-        \begin{equation}
-          \mathcal{Q}(\theta, \theta^{old}) = \sum_{\mathbf{Z}} p(\mathbf{Z} ~|~ \mathbf{X}, \theta^{old})
-              \log p(\mathbf{X}, \mathbf{Z} ~|~ \theta)
-        \end{equation}
-        
-      \item Prob. marginal de una variable latente, prob. conjunta de dos variables latentes consecutivas
-        \begin{align}
-          \gamma(z_n) &= p(z_n ~|~ \mathbf{X}, \theta^{old}) \\
-          \xi(z_{n-1}, z_n) &= p(z_{n-1}, z_n ~|~ \mathbf{X}, \theta^{old})
-        \end{align}
-  \end{itemize}
-\end{frame}
-
-\begin{frame}{HMM con EM}
-  \begin{itemize}
-      \item Prob. marginal de $z_nk = 1$, prob. conjunta de $z_{n-1,j}, z_{nk}$
-        \begin{align}
-          \gamma(z_{nk}) &= \mathbb{E} \left[ z_{nk} \right] = \sum_Z  \gamma(\mathbf{z}) z_{nk} \label{eq-13} \\
-          \xi(z_{n-1,j}, z_{nk}) &= \mathbb{E} \left[z_{n-1, j} \cdot z_{nk} \right] = 
-            \sum_Z  \gamma(\mathbf{z}) z_{n-1, j} \cdot z_{nk} \label{eq-14}
-        \end{align}  
-        
-        \item Función de verosimilitud completa (reescrita con \eqref{eq-13}, \eqref{eq-14})
-          \begin{equation}
-            \begin{split}
-              \mathcal{Q}(\theta, \theta^{old}) = 
-              \sum_{k=1}^K \gamma(z_{1k}) \log \pi_k + 
-              \sum_{n=2}^N \sum_{j=1}^K \sum_{k=1}^K \xi(z_{n-1,j}, z_{nk}) \log A_{jk} + \\
-              \sum_{n=1}^N \sum_{k=1}^K \gamma(z_{nk}) \log p(x_n ~|~ \phi_k)
-            \end{split}
-          \end{equation}
-          
-         \item Parámetros estimados por EM: 
-         \begin{equation}
-           \pi_k = \frac{\gamma(z_{1k})}{\sum_{j=1}^K \gamma(z_1j)}, ~~
-           A_{jk} = \sum_{n=2}^N \frac{\xi(z_{n-1,j}, z_{nk})}{ \sum_{l=1}^K \xi(z_{n-1,j}, z_{nl})}
-         \end{equation}
-  \end{itemize}
-\end{frame}
-
-\begin{frame}{Algoritmo backward-forward}
-  \begin{align}
-  \gamma(z_n) &= p(z_n ~|~ X) = \frac{p(X ~|~ z_n) p(z_n)}{p(X)} \\
-  \gamma(z_n) &= \frac{p(x_1, ..., x_n, z_n)p(x_{n+1}, ..., x_N ~|~ z_n)}{p(X)} \\
-  \gamma(z_n) &= \frac{\alpha(z_n) \beta(z_n)}{p(X)} \\  
-  \end{align}
-  donde 
-  \begin{align}
-    \alpha(z_n) &\equiv p(x_1, ..., x_n, z_n) \\
-    \beta(z_n) &\equiv p(x_{n+1}, ..., x_N ~|~ z_n)  \\
-    \alpha(z_n) &= p(x_n ~|~ z_n) \sum_{z_{n-1}} \alpha(z_n ~|~ z_{n-1}) \\
-    \alpha(z_1) &= p(z_1) p(x_1 ~|~ z_1) = \prod_{k=1}^K \lbrace {\pi_k p(x_1 ~|~ \phi_k)} \rbrace ^ {z_{1k}}
-  \end{align}  
-\end{frame}
-
-\begin{frame}{Algoritmo backward-forward}
-  \begin{align}
-    \beta(z_n) = \sum_{z_{n+1}} \beta(z_{n+1})p(x_{n+1} ~|~ z_{n+1}) p(z_{n+1} ~|~ z_n)
-  \end{align}  
-\end{frame}
-
-\subsection{Bootstrap}
+\section{Bootstrap}
 \begin{frame}{Bootstrap}
 \end{frame}
 
