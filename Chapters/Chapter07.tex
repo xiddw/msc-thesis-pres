@@ -1,0 +1,32 @@
+%!TEX root = ../pres - final.tex
+
+\section{Conclusiones}
+
+\begin{frame}{Conclusiones}
+  \begin{enumerate}
+    \itemsep0.8em
+    \item De acuerdo a los resultados obtenidos, se observa que el método presentado muestra un buen desempeño en las pruebas realizadas. 
+
+    \item La metodología propuesta permite una rápida exploración de todos los modelos propuestos, así como una selección del mejor candidato de acuerdo a las pruebas de hipótesis que se plantean.
+
+    \item La calidad de los resultados depende en gran parte de un correcto pre-procesamiento de la señal; ya sea para eliminar ruidos, así como para la correcta parametrización de los vectores característicos.
+
+    \item Aunque el método presentado realiza pruebas computacionalmente intensivas, desde la primera etapa de exploración permite identificar a un sub-conjunto pequeño de posibles modelos correctos.
+
+    \item La importancia de la segunda etapa de selección, permite dar certeza sobre cuál de los modelos es el correcto. Incluso con un alto nivel significancia, las pruebas de hipótesis suelen seleccionar de buena forma al modelo ganador.
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}{Trabajo futuro}
+\begin{enumerate}
+    \itemsep0.8em
+
+    \item Construir un banco de pruebas con voces reales, que permitan analizar el comportamiento del método presentado en un entorno más real.
+
+    \item Mejorar la forma en que se eliminan los silencios y ruidos; pues en pruebas con un ambiente \textit{normal}, hay muchas más fuentes de perturbación que las que hasta ahora se han considerado. 
+
+    \item Explorar otras estrategias para selección de la segmentación más óptima, buscando realizar el cálculo de manera eficiente.
+
+    \item Evaluar la pertinencia de paralelizar el algoritmo principal de estimación de parámetros del HMM, para mejorar el rendimiento general del sistema.
+\end{enumerate}
+\end{frame}

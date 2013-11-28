@@ -12,6 +12,28 @@
 \usepackage{mathpazo}
 \usepackage[euler-digits,euler-hat-accent]{eulervm}
 
+% graphics
+
+\usepackage{tabularx}
+
+\usepackage{subcaption}
+\usepackage{rotating}
+\usepackage{pgffor}
+\usepackage{tikz}
+\usepackage{ifthen}
+
+\usepackage{graphicx}
+
+\newcommand\myheader[1]{%
+  \ifcase#1\relax invisible
+  \or (a) \or (b) \or (c) \or (d) \or (e) \or (f) 
+  \or (g) \or (h) \or (i) \or (j) \or (k) \or (l) 
+  \or (m) \or (n) \or (o) \or (p) \or (q) \or (r) 
+  \or (s) \or (t) \or (u) \or (v) \or (w) \or (x) 
+  \or (y) \else (z)
+  \fi
+}
+
 %\setbeamercolor{structure}{fg=Ma}
 
 %\usepackage{times}
@@ -67,6 +89,9 @@
 
 \setbeamertemplate{navigation symbols}{} 
 
+\def\mb{\textbf}
+\def\mc{\mathcal}
+
 \begin{document}
 \setbeamertemplate{itemize items}[default]
 \setbeamertemplate{enumerate items}[default]
@@ -76,6 +101,7 @@
 \begin{frame}
   \titlepage
 \end{frame}
+
 
 \begin{frame}{Contenido}
   \setcounter{tocdepth}{1}
@@ -89,50 +115,13 @@
 
 \include{Chapters/Chapter03}
 
-\section{Bootstrap}
-\begin{frame}{Bootstrap}
-\end{frame}
+\include{Chapters/Chapter04}
 
-\section{Pruebas}
+\include{Chapters/Chapter05}
 
-\subsection{Pruebas con datos sintéticos}
+\include{Chapters/Chapter06}
 
-\begin{frame}{Numero fijo de speakers}
-\end{frame}
-
-\begin{frame}{Numero variable de speakers}
-\end{frame}
-
-\section*{Resumen}
-
-\begin{frame}{Resumen}
-  \begin{itemize}
-  \item
-    The \alert{first main message} of your talk in one or two lines.
-  \item
-    The \alert{second main message} of your talk in one or two lines.
-  \item
-    Perhaps a \alert{third message}, but not more than that.
-  \end{itemize}
-  
-  % The following outlook is optional.
-  \vskip0pt plus.5fill
-  \begin{itemize}
-  \item
-    Outlook
-    \begin{itemize}
-    \item
-      Something you haven't solved.
-    \item
-      Something else you haven't solved.
-    \end{itemize}
-  \end{itemize}
-\end{frame}
-
-\section{Trabajo futuro}
-
-\begin{frame}{Trabajo futuro}
-\end{frame}
+\include{Chapters/Chapter07}
 
 % All of the following is optional and typically not needed. 
 \appendix
